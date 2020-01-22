@@ -1,0 +1,3 @@
+[submodule "stagekit"]
+	path = stagekit
+	url = https://github.com/Sunoo/stagekit.git
