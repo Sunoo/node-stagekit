@@ -2,7 +2,7 @@
 NodeJS library for the PDP Rock Band Stage Kit, including full control over the strobe, fog, and led lights.
 
 ## USAGE
-To use the API, simply install the package from npm, `require` it, and then issue an sk_init(char *filename) where filename is the location of the appropriate event file (such as /dev/input/event5), and then use any of the other commands according to what you want to do.
+To use the API, simply install the package from npm, `require` it, and then issue an Open(filename) where filename is the location of the appropriate event file (such as /dev/input/event5), and then use any of the other commands according to what you want to do.
 
 ### Open(filename)
 Open an event interface file for a stage kit. If set to `null`, the API will attempt to probe for one automatically.
