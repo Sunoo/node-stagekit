@@ -1,8 +1,5 @@
 #include <napi.h>
-
-extern "C" {
-    #include "stagekit/stagekit.h"
-};
+#include "stagekit/stagekit.h"
 
 Napi::Value stagekit_init(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
@@ -25,7 +22,14 @@ Napi::Value stagekit_init(const Napi::CallbackInfo& info) {
         }
     }
 
-    return Napi::Number::New(env, sk_init(filename));
+    try {
+        return Napi::String::New(env, sk_init(filename));
+    }
+    catch (const std::exception& ex)
+    {
+        Napi::Error::New(env, ex.what()).ThrowAsJavaScriptException();
+        return env.Null();
+    }
 }
 
 /*Napi::Value stagekit_send_raw_value(const Napi::CallbackInfo& info) {
@@ -39,7 +43,8 @@ Napi::Value stagekit_init(const Napi::CallbackInfo& info) {
     uint left = info[0].As<Napi::Number>().Uint32Value();
     uint right = info[1].As<Napi::Number>().Uint32Value();
 
-    return Napi::Number::New(env, send_raw_value(left, right));
+    send_raw_value(left, right);
+    return env.Null();
 }*/
 
 Napi::Value stagekit_close(const Napi::CallbackInfo& info) {
@@ -226,28 +231,6 @@ Napi::Value stagekit_setblue(const Napi::CallbackInfo& info) {
     return env.Null();
 }
 
-Napi::Value stagekit_setleds(const Napi::CallbackInfo& info) {
-    Napi::Env env = info.Env();
-    
-    if (info.Length() != 4) {
-        Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException();
-        return env.Null();
-    }
-
-    if (!info[0].IsNumber() || !info[1].IsNumber() || !info[2].IsNumber() || !info[3].IsNumber()) {
-        Napi::TypeError::New(env, "Wrong argument type").ThrowAsJavaScriptException();
-        return env.Null();
-    }
-
-    int red = info[0].As<Napi::Number>().Int32Value();
-    int yellow = info[1].As<Napi::Number>().Int32Value();
-    int green = info[2].As<Napi::Number>().Int32Value();
-    int blue = info[3].As<Napi::Number>().Int32Value();
-
-    sk_setleds(red, yellow, green, blue);
-    return env.Null();
-}
-
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
     exports.Set(Napi::String::New(env, "Open"), Napi::Function::New(env, stagekit_init));
     //exports.Set(Napi::String::New(env, "SendRawValue"), Napi::Function::New(env, stagekit_send_raw_value));
@@ -264,7 +247,6 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
     exports.Set(Napi::String::New(env, "SetYellow"), Napi::Function::New(env, stagekit_setyellow));
     exports.Set(Napi::String::New(env, "SetGreen"), Napi::Function::New(env, stagekit_setgreen));
     exports.Set(Napi::String::New(env, "SetBlue"), Napi::Function::New(env, stagekit_setblue));
-    exports.Set(Napi::String::New(env, "SetLeds"), Napi::Function::New(env, stagekit_setleds));
     return exports;
 }
 
