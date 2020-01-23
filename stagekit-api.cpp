@@ -1,5 +1,8 @@
 #include <napi.h>
-#include "stagekit/stagekit.h"
+
+extern "C" {
+    #include "stagekit/stagekit.h"
+};
 
 Napi::Value stagekit_init(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
@@ -25,7 +28,7 @@ Napi::Value stagekit_init(const Napi::CallbackInfo& info) {
     return Napi::Number::New(env, sk_init(filename));
 }
 
-Napi::Value stagekit_send_raw_value(const Napi::CallbackInfo& info) {
+/*Napi::Value stagekit_send_raw_value(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
     
     if (info.Length() != 2) {
@@ -37,7 +40,7 @@ Napi::Value stagekit_send_raw_value(const Napi::CallbackInfo& info) {
     uint right = info[1].As<Napi::Number>().Uint32Value();
 
     return Napi::Number::New(env, send_raw_value(left, right));
-}
+}*/
 
 Napi::Value stagekit_close(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
@@ -246,22 +249,22 @@ Napi::Value stagekit_setleds(const Napi::CallbackInfo& info) {
 }
 
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
-    exports.Set(Napi::String::New(env, "sk_init"), Napi::Function::New(env, stagekit_init));
-    exports.Set(Napi::String::New(env, "send_raw_value"), Napi::Function::New(env, stagekit_send_raw_value));
-    exports.Set(Napi::String::New(env, "sk_close"), Napi::Function::New(env, stagekit_close));
-    exports.Set(Napi::String::New(env, "sk_alloff"), Napi::Function::New(env, stagekit_alloff));
-    exports.Set(Napi::String::New(env, "sk_nostrobe"), Napi::Function::New(env, stagekit_nostrobe));
-    exports.Set(Napi::String::New(env, "sk_slowstrobe"), Napi::Function::New(env, stagekit_slowstrobe));
-    exports.Set(Napi::String::New(env, "sk_medstrobe"), Napi::Function::New(env, stagekit_medstrobe));
-    exports.Set(Napi::String::New(env, "sk_faststrobe"), Napi::Function::New(env, stagekit_faststrobe));
-    exports.Set(Napi::String::New(env, "sk_fasteststrobe"), Napi::Function::New(env, stagekit_fasteststrobe));
-    exports.Set(Napi::String::New(env, "sk_fogon"), Napi::Function::New(env, stagekit_fogon));
-    exports.Set(Napi::String::New(env, "sk_fogoff"), Napi::Function::New(env, stagekit_fogoff));
-    exports.Set(Napi::String::New(env, "sk_setred"), Napi::Function::New(env, stagekit_setred));
-    exports.Set(Napi::String::New(env, "sk_setyellow"), Napi::Function::New(env, stagekit_setyellow));
-    exports.Set(Napi::String::New(env, "sk_setgreen"), Napi::Function::New(env, stagekit_setgreen));
-    exports.Set(Napi::String::New(env, "sk_setblue"), Napi::Function::New(env, stagekit_setblue));
-    exports.Set(Napi::String::New(env, "sk_setleds"), Napi::Function::New(env, stagekit_setleds));
+    exports.Set(Napi::String::New(env, "Open"), Napi::Function::New(env, stagekit_init));
+    //exports.Set(Napi::String::New(env, "SendRawValue"), Napi::Function::New(env, stagekit_send_raw_value));
+    exports.Set(Napi::String::New(env, "Close"), Napi::Function::New(env, stagekit_close));
+    exports.Set(Napi::String::New(env, "AllOff"), Napi::Function::New(env, stagekit_alloff));
+    exports.Set(Napi::String::New(env, "NoStrobe"), Napi::Function::New(env, stagekit_nostrobe));
+    exports.Set(Napi::String::New(env, "SlowStrobe"), Napi::Function::New(env, stagekit_slowstrobe));
+    exports.Set(Napi::String::New(env, "MedStrobe"), Napi::Function::New(env, stagekit_medstrobe));
+    exports.Set(Napi::String::New(env, "FastStrobe"), Napi::Function::New(env, stagekit_faststrobe));
+    exports.Set(Napi::String::New(env, "FastestStrobe"), Napi::Function::New(env, stagekit_fasteststrobe));
+    exports.Set(Napi::String::New(env, "FogOn"), Napi::Function::New(env, stagekit_fogon));
+    exports.Set(Napi::String::New(env, "FogOff"), Napi::Function::New(env, stagekit_fogoff));
+    exports.Set(Napi::String::New(env, "SetRed"), Napi::Function::New(env, stagekit_setred));
+    exports.Set(Napi::String::New(env, "SetYellow"), Napi::Function::New(env, stagekit_setyellow));
+    exports.Set(Napi::String::New(env, "SetGreen"), Napi::Function::New(env, stagekit_setgreen));
+    exports.Set(Napi::String::New(env, "SetBlue"), Napi::Function::New(env, stagekit_setblue));
+    exports.Set(Napi::String::New(env, "SetLeds"), Napi::Function::New(env, stagekit_setleds));
     return exports;
 }
 
