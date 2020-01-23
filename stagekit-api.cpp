@@ -43,7 +43,13 @@ Napi::Value stagekit_init(const Napi::CallbackInfo& info) {
     uint left = info[0].As<Napi::Number>().Uint32Value();
     uint right = info[1].As<Napi::Number>().Uint32Value();
 
-    send_raw_value(left, right);
+    try {
+        send_raw_value(left, right);
+    }
+    catch (const std::exception& ex)
+    {
+        Napi::Error::New(env, ex.what()).ThrowAsJavaScriptException();
+    }
     return env.Null();
 }*/
 
@@ -55,7 +61,13 @@ Napi::Value stagekit_close(const Napi::CallbackInfo& info) {
         return env.Null();
     }
 
-    sk_close();
+    try {
+        sk_close();
+    }
+    catch (const std::exception& ex)
+    {
+        Napi::Error::New(env, ex.what()).ThrowAsJavaScriptException();
+    }
     return env.Null();
 }
 
@@ -67,91 +79,53 @@ Napi::Value stagekit_alloff(const Napi::CallbackInfo& info) {
         return env.Null();
     }
 
-    sk_alloff();
+    try {
+        sk_alloff();
+    }
+    catch (const std::exception& ex)
+    {
+        Napi::Error::New(env, ex.what()).ThrowAsJavaScriptException();
+    }
     return env.Null();
 }
 
-Napi::Value stagekit_nostrobe(const Napi::CallbackInfo& info) {
+Napi::Value stagekit_setstrobe(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
     
-    if (info.Length() > 0) {
+    if (info.Length() > 1) {
         Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException();
         return env.Null();
     }
 
-    sk_nostrobe();
+    uint speed = info[0].As<Napi::Number>().Uint32Value();
+
+    try {
+        sk_setstrobe(speed);
+    }
+    catch (const std::exception& ex)
+    {
+        Napi::Error::New(env, ex.what()).ThrowAsJavaScriptException();
+    }
     return env.Null();
 }
 
-Napi::Value stagekit_slowstrobe(const Napi::CallbackInfo& info) {
+Napi::Value stagekit_setfog(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
     
-    if (info.Length() > 0) {
+    if (info.Length() > 1) {
         Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException();
         return env.Null();
     }
 
-    sk_slowstrobe();
-    return env.Null();
-}
+    bool fogon = info[0].As<Napi::Boolean>().Value();
 
-Napi::Value stagekit_medstrobe(const Napi::CallbackInfo& info) {
-    Napi::Env env = info.Env();
-    
-    if (info.Length() > 0) {
-        Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException();
-        return env.Null();
+    try {
+        sk_setfog(fogon);
     }
-
-    sk_medstrobe();
-    return env.Null();
-}
-
-Napi::Value stagekit_faststrobe(const Napi::CallbackInfo& info) {
-    Napi::Env env = info.Env();
-    
-    if (info.Length() > 0) {
-        Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException();
-        return env.Null();
+    catch (const std::exception& ex)
+    {
+        Napi::Error::New(env, ex.what()).ThrowAsJavaScriptException();
     }
-
-    sk_faststrobe();
-    return env.Null();
-}
-
-Napi::Value stagekit_fasteststrobe(const Napi::CallbackInfo& info) {
-    Napi::Env env = info.Env();
-    
-    if (info.Length() > 0) {
-        Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException();
-        return env.Null();
-    }
-
-    sk_fasteststrobe();
-    return env.Null();
-}
-
-Napi::Value stagekit_fogon(const Napi::CallbackInfo& info) {
-    Napi::Env env = info.Env();
-    
-    if (info.Length() > 0) {
-        Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException();
-        return env.Null();
-    }
-
-    sk_fogon();
-    return env.Null();
-}
-
-Napi::Value stagekit_fogoff(const Napi::CallbackInfo& info) {
-    Napi::Env env = info.Env();
-    
-    if (info.Length() > 0) {
-        Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException();
-        return env.Null();
-    }
-
-    sk_fogoff();
     return env.Null();
 }
 
@@ -170,7 +144,13 @@ Napi::Value stagekit_setred(const Napi::CallbackInfo& info) {
 
     int leds = info[0].As<Napi::Number>().Int32Value();
 
-    sk_setred(leds);
+    try {
+        sk_setred(leds);
+    }
+    catch (const std::exception& ex)
+    {
+        Napi::Error::New(env, ex.what()).ThrowAsJavaScriptException();
+    }
     return env.Null();
 }
 
@@ -189,7 +169,13 @@ Napi::Value stagekit_setyellow(const Napi::CallbackInfo& info) {
 
     int leds = info[0].As<Napi::Number>().Int32Value();
 
-    sk_setyellow(leds);
+    try {
+        sk_setyellow(leds);
+    }
+    catch (const std::exception& ex)
+    {
+        Napi::Error::New(env, ex.what()).ThrowAsJavaScriptException();
+    }
     return env.Null();
 }
 
@@ -208,7 +194,13 @@ Napi::Value stagekit_setgreen(const Napi::CallbackInfo& info) {
 
     int leds = info[0].As<Napi::Number>().Int32Value();
 
-    sk_setgreen(leds);
+    try {
+        sk_setgreen(leds);
+    }
+    catch (const std::exception& ex)
+    {
+        Napi::Error::New(env, ex.what()).ThrowAsJavaScriptException();
+    }
     return env.Null();
 }
 
@@ -227,7 +219,13 @@ Napi::Value stagekit_setblue(const Napi::CallbackInfo& info) {
 
     int leds = info[0].As<Napi::Number>().Int32Value();
 
-    sk_setblue(leds);
+    try {
+        sk_setblue(leds);
+    }
+    catch (const std::exception& ex)
+    {
+        Napi::Error::New(env, ex.what()).ThrowAsJavaScriptException();
+    }
     return env.Null();
 }
 
@@ -236,13 +234,8 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
     //exports.Set(Napi::String::New(env, "SendRawValue"), Napi::Function::New(env, stagekit_send_raw_value));
     exports.Set(Napi::String::New(env, "Close"), Napi::Function::New(env, stagekit_close));
     exports.Set(Napi::String::New(env, "AllOff"), Napi::Function::New(env, stagekit_alloff));
-    exports.Set(Napi::String::New(env, "NoStrobe"), Napi::Function::New(env, stagekit_nostrobe));
-    exports.Set(Napi::String::New(env, "SlowStrobe"), Napi::Function::New(env, stagekit_slowstrobe));
-    exports.Set(Napi::String::New(env, "MedStrobe"), Napi::Function::New(env, stagekit_medstrobe));
-    exports.Set(Napi::String::New(env, "FastStrobe"), Napi::Function::New(env, stagekit_faststrobe));
-    exports.Set(Napi::String::New(env, "FastestStrobe"), Napi::Function::New(env, stagekit_fasteststrobe));
-    exports.Set(Napi::String::New(env, "FogOn"), Napi::Function::New(env, stagekit_fogon));
-    exports.Set(Napi::String::New(env, "FogOff"), Napi::Function::New(env, stagekit_fogoff));
+    exports.Set(Napi::String::New(env, "SetStrobe"), Napi::Function::New(env, stagekit_setstrobe));
+    exports.Set(Napi::String::New(env, "SetFog"), Napi::Function::New(env, stagekit_setfog));
     exports.Set(Napi::String::New(env, "SetRed"), Napi::Function::New(env, stagekit_setred));
     exports.Set(Napi::String::New(env, "SetYellow"), Napi::Function::New(env, stagekit_setyellow));
     exports.Set(Napi::String::New(env, "SetGreen"), Napi::Function::New(env, stagekit_setgreen));
