@@ -1,15 +1,17 @@
 {
   "name": "stagekit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "RockBand StageKit API in NodeJS",
   "repository": {
     "type": "git",
     "url": "git://github.com/Sunoo/node-stagekit.git"
   },
   "keywords": [
-    "homebridge-plugin",
-    "aqicn",
-    "air quality"
+    "pdp",
+    "rockband",
+    "rock band",
+    "stagekit",
+    "stage kit"
   ],
   "author": "David Maher",
   "license": "GPL-2.0-or-later",
