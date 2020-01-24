@@ -1,12 +1,17 @@
 #include <napi.h>
-#include "stagekit/stagekit.h"
 
-Napi::Value stagekit_init(const Napi::CallbackInfo& info) {
+extern "C" {
+    #include "stagekit/stagekit.h"
+}
+
+Napi::Value stagekit_init(const Napi::CallbackInfo& info)
+{
     Napi::Env env = info.Env();
 
     char* filename = NULL;
     
-    if (info.Length() > 1) {
+    if (info.Length() > 1)
+    {
         Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException();
         return env.Null();
     }
@@ -21,18 +26,23 @@ Napi::Value stagekit_init(const Napi::CallbackInfo& info) {
             return env.Null();
         }
     }
+    
+    char* foundfile = NULL;
+    char* errorStr = NULL;
 
-    try {
-        return Napi::String::New(env, sk_init(filename));
-    }
-    catch (const std::exception& ex)
+    int error = sk_init(filename, &foundfile, &errorStr);
+    if (error == 0)
     {
-        Napi::Error::New(env, ex.what()).ThrowAsJavaScriptException();
+        return Napi::String::New(env, foundfile);
+    }
+    else
+    {
+        Napi::Error::New(env, errorStr).ThrowAsJavaScriptException();
         return env.Null();
     }
 }
 
-/*Napi::Value stagekit_send_raw_value(const Napi::CallbackInfo& info) {
+Napi::Value stagekit_send_raw_value(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
     
     if (info.Length() != 2) {
@@ -42,16 +52,16 @@ Napi::Value stagekit_init(const Napi::CallbackInfo& info) {
 
     uint left = info[0].As<Napi::Number>().Uint32Value();
     uint right = info[1].As<Napi::Number>().Uint32Value();
+    
+    char* errorStr = NULL;
 
-    try {
-        send_raw_value(left, right);
-    }
-    catch (const std::exception& ex)
+    int error = send_raw_value(left, right, &errorStr);
+    if (error != 0)
     {
-        Napi::Error::New(env, ex.what()).ThrowAsJavaScriptException();
+        Napi::Error::New(env, errorStr).ThrowAsJavaScriptException();
     }
     return env.Null();
-}*/
+}
 
 Napi::Value stagekit_close(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
@@ -61,12 +71,12 @@ Napi::Value stagekit_close(const Napi::CallbackInfo& info) {
         return env.Null();
     }
 
-    try {
-        sk_close();
-    }
-    catch (const std::exception& ex)
+    char* errorStr = NULL;
+
+    int error = sk_close(&errorStr);
+    if (error != 0)
     {
-        Napi::Error::New(env, ex.what()).ThrowAsJavaScriptException();
+        Napi::Error::New(env, errorStr).ThrowAsJavaScriptException();
     }
     return env.Null();
 }
@@ -79,12 +89,12 @@ Napi::Value stagekit_alloff(const Napi::CallbackInfo& info) {
         return env.Null();
     }
 
-    try {
-        sk_alloff();
-    }
-    catch (const std::exception& ex)
+    char* errorStr = NULL;
+
+    int error = sk_alloff(&errorStr);
+    if (error != 0)
     {
-        Napi::Error::New(env, ex.what()).ThrowAsJavaScriptException();
+        Napi::Error::New(env, errorStr).ThrowAsJavaScriptException();
     }
     return env.Null();
 }
@@ -99,12 +109,12 @@ Napi::Value stagekit_setstrobe(const Napi::CallbackInfo& info) {
 
     uint speed = info[0].As<Napi::Number>().Uint32Value();
 
-    try {
-        sk_setstrobe(speed);
-    }
-    catch (const std::exception& ex)
+    char* errorStr = NULL;
+
+    int error = sk_setstrobe(speed, &errorStr);
+    if (error != 0)
     {
-        Napi::Error::New(env, ex.what()).ThrowAsJavaScriptException();
+        Napi::Error::New(env, errorStr).ThrowAsJavaScriptException();
     }
     return env.Null();
 }
@@ -117,14 +127,14 @@ Napi::Value stagekit_setfog(const Napi::CallbackInfo& info) {
         return env.Null();
     }
 
-    bool fogon = info[0].As<Napi::Boolean>().Value();
+    bool fog = info[0].As<Napi::Boolean>().Value();
 
-    try {
-        sk_setfog(fogon);
-    }
-    catch (const std::exception& ex)
+    char* errorStr = NULL;
+
+    int error = sk_setfog(fog, &errorStr);
+    if (error != 0)
     {
-        Napi::Error::New(env, ex.what()).ThrowAsJavaScriptException();
+        Napi::Error::New(env, errorStr).ThrowAsJavaScriptException();
     }
     return env.Null();
 }
@@ -142,14 +152,14 @@ Napi::Value stagekit_setred(const Napi::CallbackInfo& info) {
         return env.Null();
     }
 
-    int leds = info[0].As<Napi::Number>().Int32Value();
+    int red = info[0].As<Napi::Number>().Int32Value();
 
-    try {
-        sk_setred(leds);
-    }
-    catch (const std::exception& ex)
+    char* errorStr = NULL;
+
+    int error = sk_setred(red, &errorStr);
+    if (error != 0)
     {
-        Napi::Error::New(env, ex.what()).ThrowAsJavaScriptException();
+        Napi::Error::New(env, errorStr).ThrowAsJavaScriptException();
     }
     return env.Null();
 }
@@ -167,14 +177,14 @@ Napi::Value stagekit_setyellow(const Napi::CallbackInfo& info) {
         return env.Null();
     }
 
-    int leds = info[0].As<Napi::Number>().Int32Value();
+    int yellow = info[0].As<Napi::Number>().Int32Value();
 
-    try {
-        sk_setyellow(leds);
-    }
-    catch (const std::exception& ex)
+    char* errorStr = NULL;
+
+    int error = sk_setyellow(yellow, &errorStr);
+    if (error != 0)
     {
-        Napi::Error::New(env, ex.what()).ThrowAsJavaScriptException();
+        Napi::Error::New(env, errorStr).ThrowAsJavaScriptException();
     }
     return env.Null();
 }
@@ -192,14 +202,14 @@ Napi::Value stagekit_setgreen(const Napi::CallbackInfo& info) {
         return env.Null();
     }
 
-    int leds = info[0].As<Napi::Number>().Int32Value();
+    int green = info[0].As<Napi::Number>().Int32Value();
 
-    try {
-        sk_setgreen(leds);
-    }
-    catch (const std::exception& ex)
+    char* errorStr = NULL;
+
+    int error = sk_setgreen(green, &errorStr);
+    if (error != 0)
     {
-        Napi::Error::New(env, ex.what()).ThrowAsJavaScriptException();
+        Napi::Error::New(env, errorStr).ThrowAsJavaScriptException();
     }
     return env.Null();
 }
@@ -217,14 +227,14 @@ Napi::Value stagekit_setblue(const Napi::CallbackInfo& info) {
         return env.Null();
     }
 
-    int leds = info[0].As<Napi::Number>().Int32Value();
+    int blue = info[0].As<Napi::Number>().Int32Value();
 
-    try {
-        sk_setblue(leds);
-    }
-    catch (const std::exception& ex)
+    char* errorStr = NULL;
+
+    int error = sk_setblue(blue, &errorStr);
+    if (error != 0)
     {
-        Napi::Error::New(env, ex.what()).ThrowAsJavaScriptException();
+        Napi::Error::New(env, errorStr).ThrowAsJavaScriptException();
     }
     return env.Null();
 }
