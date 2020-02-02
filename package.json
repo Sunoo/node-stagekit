@@ -1,6 +1,6 @@
 {
   "name": "stagekit",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "RockBand StageKit API in NodeJS",
   "repository": {
     "type": "git",

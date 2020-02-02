@@ -13,7 +13,7 @@ Closes the file handles for the stage kit.
 ### AllOff()
 Sends a "panic" signal to turn everything off at once.
 
-### Strobe(speed)
+### SetStrobe(speed)
 Set strobe flash speed. Valid range 0-4.
 
 ### SetFog(fog)
