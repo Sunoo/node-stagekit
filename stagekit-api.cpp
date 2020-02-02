@@ -20,7 +20,7 @@ Napi::Value stagekit_init(const Napi::CallbackInfo& info)
         if (info[0].IsString()) {
             filename = const_cast<char*>(info[0].As<Napi::String>().Utf8Value().c_str());
         }
-        else if (!info[0].IsNull())
+        else if (!(info[0].IsNull() || info[0].IsUndefined()))
         {
             Napi::TypeError::New(env, "Wrong argument type").ThrowAsJavaScriptException();
             return env.Null();
