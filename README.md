@@ -1,4 +1,6 @@
 # RockBand StageKit API
+[![npm](https://img.shields.io/npm/v/stagekit) ![npm](https://img.shields.io/npm/dt/stagekit)](https://www.npmjs.com/package/stagekit)
+
 NodeJS library for the PDP Rock Band Stage Kit, including full control over the strobe, fog, and led lights.
 
 ## Usage
