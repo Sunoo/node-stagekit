@@ -1,7 +1,7 @@
 # RockBand StageKit API
 [![npm](https://img.shields.io/npm/v/stagekit) ![npm](https://img.shields.io/npm/dt/stagekit)](https://www.npmjs.com/package/stagekit)
 
-NodeJS library for the PDP Rock Band Stage Kit, including full control over the strobe, fog, and led lights.
+NodeJS library for the PDP Rock Band Stage Kit, including full control over the strobe, fog, and led lights. Currently only supports Linux.
 
 ## Usage
 To use the API, simply install the `stagekit` package from npm, `require` it, and then issue an Open(filename) where filename is the location of the appropriate event file (such as /dev/input/event5), and then use any of the other commands according to what you want to do.
