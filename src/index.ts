@@ -11,7 +11,7 @@ export enum StrobeSpeed {
 }
 
 export class StageKit {
-  public readonly eventfile: string;
+  readonly eventfile: string;
 
   constructor(eventfile?: string) {
     if (eventfile) {
