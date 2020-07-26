@@ -10,9 +10,15 @@ export enum StrobeSpeed {
   Fastest = 4
 }
 
-export class StageKitApi {
-  Open(eventfile: string): string {
-    return gyp.Open(eventfile);
+export class StageKit {
+  public readonly eventfile: string;
+
+  constructor(eventfile?: string) {
+    if (eventfile) {
+      this.eventfile = gyp.Open(eventfile);
+    } else {
+      this.eventfile = gyp.Open();
+    }
   }
 
   Close(): void {
