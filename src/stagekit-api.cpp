@@ -1,7 +1,7 @@
 #include <napi.h>
 
 extern "C" {
-    #include "stagekit/stagekit.h"
+    #include "../stagekit/stagekit.h"
 }
 
 Napi::Value stagekit_init(const Napi::CallbackInfo& info)
