@@ -1,6 +1,6 @@
 import bindings from 'bindings';
 
-const gyp = bindings('stagekit-api.node');
+const api = bindings('stagekit-api.node');
 
 export enum StrobeSpeed {
   Off = 0,
@@ -15,41 +15,41 @@ export class StageKit {
 
   constructor(eventfile?: string) {
     if (eventfile) {
-      this.eventfile = gyp.Open(eventfile);
+      this.eventfile = api.Open(eventfile);
     } else {
-      this.eventfile = gyp.Open();
+      this.eventfile = api.Open();
     }
   }
 
   Close(): void {
-    gyp.Close();
+    api.Close();
   }
 
   AllOff(): void {
-    gyp.AllOff();
+    api.AllOff();
   }
 
   SetStrobe(speed: StrobeSpeed): void {
-    gyp.SetStrobe(speed as number);
+    api.SetStrobe(speed as number);
   }
 
   SetFog(fog: boolean): void {
-    gyp.SetFog(fog);
+    api.SetFog(fog);
   }
 
   SetRed(red: number): void {
-    gyp.SetRed(red);
+    api.SetRed(red);
   }
 
   SetYellow(yellow: number): void {
-    gyp.SetYellow(yellow);
+    api.SetYellow(yellow);
   }
 
   SetGreen(green: number): void {
-    gyp.SetGreen(green);
+    api.SetGreen(green);
   }
 
   SetBlue(blue: number): void {
-    gyp.SetBlue(blue);
+    api.SetBlue(blue);
   }
 }
