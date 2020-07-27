@@ -43,6 +43,7 @@
   },
   "files": [
     "binding.gyp",
+    "stagekit/**/*",
     "src/stagekit-api.cpp",
     "dist/**/*",
     "LICENSE",
