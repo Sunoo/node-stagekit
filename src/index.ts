@@ -13,12 +13,8 @@ export enum StrobeSpeed {
 export class StageKit {
   readonly eventfile: string;
 
-  constructor(eventfile?: string) {
-    if (eventfile) {
-      this.eventfile = api.Open(eventfile);
-    } else {
-      this.eventfile = api.Open();
-    }
+  constructor() {
+    this.eventfile = api.Open();
   }
 
   Close(): void {
