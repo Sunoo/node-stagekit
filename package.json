@@ -1,6 +1,6 @@
 {
   "name": "stagekit",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "RockBand StageKit API in NodeJS",
   "main": "dist/index.js",
   "repository": {
@@ -16,6 +16,27 @@
   ],
   "author": "David Maher",
   "license": "GPL-2.0-or-later",
+  "os": [
+    "linux"
+  ],
+  "funding": [
+    {
+      "type": "kofi",
+      "url": "https://ko-fi.com/sunookitsune"
+    },
+    {
+      "type": "paypal",
+      "url": "https://paypal.me/sunoo"
+    },
+    {
+      "type": "github",
+      "url": "https://github.com/Sunoo"
+    },
+    {
+      "type": "liberapay",
+      "url": "https://liberapay.com/Sunoo"
+    }
+  ],
   "bugs": {
     "url": "https://github.com/Sunoo/node-stagekit/issues"
   },
