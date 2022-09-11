@@ -1,5 +1,5 @@
 {
-  "name": "stagekit",
+  "name": "rbstagekit",
   "version": "1.2.2",
   "description": "RockBand StageKit API in NodeJS",
   "main": "dist/index.js",
